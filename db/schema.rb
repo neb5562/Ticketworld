@@ -10,8 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 0) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_03_151045) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "events", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "starting_at", null: false
+    t.datetime "ending_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.boolean "payment_status", default: false, null: false
+    t.bigint "event_id"
+    t.bigint "reservation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_payments_on_event_id"
+    t.index ["reservation_id"], name: "index_payments_on_reservation_id"
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.bigint "event_id"
+    t.datetime "payment_due", default: "2022-07-03 15:28:26"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_reservations_on_event_id"
+  end
+
+  create_table "ticket_reservations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tickets", force: :cascade do |t|
+    t.integer "place_number", null: false
+    t.decimal "price", precision: 5, scale: 2, null: false
+    t.bigint "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_tickets_on_event_id"
+  end
 
 end
