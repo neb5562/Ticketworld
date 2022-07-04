@@ -30,5 +30,11 @@ module Types
     def events
       Event.all
     end
+
+    field :tickets, [Types::TicketType], null: false
+
+    def tickets
+      Ticket.all
+    end
   end
 end

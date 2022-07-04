@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_151045) do
 
   create_table "reservations", force: :cascade do |t|
     t.bigint "event_id"
-    t.datetime "payment_due", default: "2022-07-03 15:28:26"
+    t.datetime "payment_due", default: "2022-07-04 18:27:27"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_reservations_on_event_id"
@@ -52,6 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_151045) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_tickets_on_event_id"
+    t.index ["place_number"], name: "index_tickets_on_place_number", unique: true
   end
 
 end
